@@ -63,7 +63,7 @@ font-size: unit-vw(16px, mobile);
 @include respond-to(tablet) {
   width: unit-vw(100px, tablet);
   //or
-  width: unit-pc(100px, tablet, 1/12);  //for e.g. Bootstrap's col-sm-12, specify the ratio
+  width: unit-pc(100px, tablet, 1/12);  //for e.g. Bootstrap's col-sm-1, specify the ratio
 
   font-size: unit-rem(12px, $font-size-tablet);
   //or
