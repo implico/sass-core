@@ -80,12 +80,12 @@ Use the mixin `font-face-custom` (located in `mixins/fonts`).
 #### Responsive size: px, rem, vw
 Use the `font-px` mixin, specifying the font sizes for the breakpoints, i.e.:
 ```sass
-@include font-vw($mobile: 15px, $tablet: 13px, $desktop: 17px);
+@include font-px($mobile: 15px, $tablet: 13px, $desktop: 17px);
 ```
 
 Use the `font-rem` mixin, specifying the font sizes and base font sizes for the breakpoints, i.e.:
 ```sass
-@include font-rem($sizesPxRem: (mobile: 10px, tablet: 15px), $mobile: 15px, $tablet: 13px);
+@include font-rem((mobile: 10px, tablet: 15px), $mobile: 15px, $tablet: 13px);
 ```
 
 To make the font size dependent on the viewport width, use the `font-vw` mixin, specifying the maximum font sizes for the breakpoints, i.e.:
@@ -149,8 +149,14 @@ This will produce same code as:
 
 When using `font-rem` mixin, you must aways specify the sizes for the desired breakpoints, like:
 ```sass
-@include font-rem(sm, (mobile: 21px, tablet: 20px));
+@include font-rem(md, (mobile: 21px, tablet: 20px));
 ```
+For rems, if you specify a map instead of a string for the first parameter, a default font set is taken and the parameter is considered as font sizes. So the above code is equal to:
+```sass
+@include font-rem((mobile: 21px, tablet: 20px));
+```
+
+Default font set is defined by `$font-set-default` variable (defaults to `md`).
 
 
 

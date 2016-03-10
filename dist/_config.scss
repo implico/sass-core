@@ -43,3 +43,6 @@ $font-sets: (
   md: (mobile: 16px, tablet: 18px, desktop: 16px),
   lg: (mobile: 22px, tablet: 22px, desktop: 22px)
 ) !default;
+
+//default font set for font-* mixins
+$font-set-default: md !default;
