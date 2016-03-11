@@ -1,4 +1,4 @@
-# sass-core
+# SASS-core
 
 A SASS-based framework with useful mixins. Originally a part of the [frontend-starter] framework.
 
