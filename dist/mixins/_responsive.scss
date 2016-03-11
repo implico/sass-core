@@ -151,7 +151,7 @@
 @function breakpoint-px($breakpoint: mobile, $useDesignBreakpoints: true) {
 
   @if $useDesignBreakpoints and map-has-key($design-breakpoints, $breakpoint) {
-    $breakpointWidth: map-get($design-breakpoints, $breakpoint);
+    @return map-get($design-breakpoints, $breakpoint);
   }
   @else {
 

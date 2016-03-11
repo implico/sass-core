@@ -2,7 +2,7 @@
   "name": "sass-core",
   "description": "A SASS-based framework with useful mixins and concepts",
   "version": "0.1.0",
-  "main": "./dist/_sass-core.scss",
+  "main": "./dist/_core.scss",
 
   "author": "Bartosz Sak",
   "license": "MIT",  
