@@ -1,6 +1,6 @@
 # SASS-core
 
-A SASS-based framework with useful mixins. Originally a part of the [frontend-starter] framework.
+A SASS-based framework with useful mixins. Originally a part of the [Frontend-starter][frontend-starter] framework.
 
 ## Features
 * [media queries with Breakpoint library][sass-breakpoint], configurable breakpoints
@@ -10,10 +10,17 @@ A SASS-based framework with useful mixins. Originally a part of the [frontend-st
 * utilities: clearfix, font-face, placeholder styling
 
 ## Installation
-T.B.C. - via Bower
+* Bower install
+Add `sass-core` to your `bower.json` dependencies
+
+* Manual install
+Unpack the contents of `dist` directory to the desired dir
+
+*First* include [SASS Breakpoint] file, then SASS-core file.
+
 
 ## Manual
-By default, sass-core uses the [SASS Breakpoint][sass-breakpoint] and [mobile first approach](http://www.google.com/search?q=mobile+first). The predefined in `_config.scss` breakpoints are (you can change any options by setting variables before importing the framework):
+By default, sass-core uses the [SASS Breakpoint][sass-breakpoint] and [mobile first approach](http://www.google.com/search?q=mobile+first). The predefined in `_config.scss` breakpoints are (you can change any options by setting variables before importing the framework SASS file):
 * main, defined as min-width: `mobile`, `tablet`, `desktop` (when you want to target viewport with at least specified width)
 * main, defined as exact ranges: `mobile-ex`, `tablet-ex`, `desktop-ex` (when you want to target only the specified range)
 * auxiliary (small and large variations), defined as exact ranges: `mobile-sm`, `mobile-lg`, `tablet-sm`, `tablet-lg`, `desktop-sm`, `desktop-lg`
@@ -63,7 +70,7 @@ font-size: unit-vw(16px, mobile);
 @include respond-to(tablet) {
   width: unit-vw(100px, tablet);
   //or
-  width: unit-pc(100px, tablet, 1/12);  //for e.g. Bootstrap's col-sm-1, specify the ratio
+  width: unit-pc(100px, tablet);
 
   font-size: unit-rem(12px, $font-size-tablet);
   //or
@@ -75,7 +82,18 @@ font-size: unit-vw(16px, mobile);
 ### Fonts
 
 #### Enabling font-face
-Use the mixin `font-face-custom` (located in `mixins/fonts`).
+Use the mixin `sc-font-face`, here is its declaration:
+```sass
+@mixin sc-font-face($name, $filenameBase: null, $weight: normal, $style: null, $dir: $sc-font-dir, $exts: eot woff woff2 ttf, $ie8fix: true);
+
+//example
+@include sc-font-face(OpenSans, OpenSans-Regular, bold);
+```
+
+Notes:
+* `$filenameBase`: if not set (file name without extension), the `$name` is assumed
+* `$dir`: default font dir (relative to css output dir) defined in `$sc-font-dir` is `fonts` (`css/fonts`)
+* `$ie8fix`: adds the IE8 support
 
 #### Responsive size: px, rem, vw
 Use the `font-px` mixin, specifying the font sizes for the breakpoints, i.e.:
@@ -164,7 +182,7 @@ Default font set is defined by `$font-set-default` variable (defaults to `md`).
 ### Design breakpoints
 By default the base width used to calculate vw/percentage width is the width of a breakpoint passed as the second argument. However, usually layout widths on the design do not meet the "system" (media query) breakpoints. For example, you can get a PSD design for mobile at 600px width (rather than 767px), and would like to calculate units according to this size. To deal with it, add a design breakpoint:
 ```sass
-$design-breakpoints: (mobile: 600px);
+$sc-design-breakpoints: (mobile: 600px);
 ```
 
 In this case, all units for mobile, including font-vw, will be calculated according to this size.
