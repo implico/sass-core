@@ -169,6 +169,12 @@
     @else if ($breakpoint == desktop) {
       @return $sc-desktop-min;
     }
+    @else if ($breakpoint == desktop-lg) {
+      @return $sc-desktop-min;
+    }
+    @else {
+      @warn 'sass-core/breakpoint-px: breakpoint: ' + $breakpoint + ' not allowed!';
+    }
   }
 }
 

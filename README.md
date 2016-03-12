@@ -113,7 +113,7 @@ To make the font size dependent on the viewport width, use the `font-vw` mixin, 
 ```sass
 @include font-vw((mobile: 15px, tablet: 13px, desktop: 17px));
 ```
-For desktop breakpoints, px font size will be used, unless you set the `$vwDesktop` parameter to true.
+For desktop breakpoints, px font size will be used - you can change the `$sc-font-conv-vw-exclude` config variable (list) or pass it as a `$vwExcludeBreakpoints` parameter.
 
 ##### The result
 Media queries will be automatically created. Produced CSS code will be similar to (example for vw unit; px size is just a fallback for browsers not supporting this unit):

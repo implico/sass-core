@@ -49,3 +49,6 @@ $sc-font-set-default: md !default;
 
 //font directory for sc-font-face mixin (relative to the output css file)
 $sc-font-dir: 'fonts/' !default;
+
+//breakpoints for which font vw is not set (px value is used)
+$sc-font-conv-vw-exclude: (desktop, desktop-lg);
