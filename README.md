@@ -175,7 +175,7 @@ This will produce same code as:
 @include font-vw((mobile: 15px, tablet: 13px, desktop: 17px));
 ```
 
-You can change any of the font set size, by passing a map as a second parameter:
+You can change any font set size, by passing a map as a second parameter:
 ```sass
 @include font-vw(sm, (mobile: 12px)); //mobile size changed, other left according to the font set
 ```
@@ -207,7 +207,7 @@ By default the base width used to calculate vw/percentage width is the width of 
 $sc-design-breakpoints: (mobile: 600px);
 ```
 
-In this case, all units for `mobile`, including font-vw, will be calculated according to this size. If you don't set any of the design breakpoint (e.g `desktop`), the mixins fallback to the default breakpoints.
+In this case, all units for `mobile`, including font-vw, will be calculated according to this size. If you don't set a particular design breakpoint (e.g `desktop`), the mixins fallback to the default breakpoints.
 
 
 ### Grids
