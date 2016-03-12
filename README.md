@@ -6,6 +6,7 @@ A SASS-based framework with useful mixins. Originally a part of the [Frontend-st
 * [media queries with Breakpoint library][sass-breakpoint], configurable breakpoints
 * design breakpoints - set the desing (e.g PSD) pixel dimensions and use mixins to calculate percentage or vw units
 * font sets - set the standard font sizes (for headings, paragraphs) and use a mixin to automatically generate media queries for rem/px/vw (or use converter functions if you want to add media queries manually)
+* grid building mixins
 * responsive sprites (requires [spritesmith] - available also in grunt/gulp version)
 * utilities: clearfix, font-face, placeholder styling
 
