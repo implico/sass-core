@@ -61,15 +61,15 @@ Build your stylesheet like this:
 ### Units
 Convert px units easily to vw or percentage. Just get the px dimensions of an element from the design (e.g. PSD), and use:
 ```sass
-//pass the breakpoint/design breakpoint name
+//pass the width and container width as a breakpoint/design breakpoint name
 width: unit-vw(50px, mobile);
-//or pass the value
+//or pass container width as a value
 font-size: unit-pc(100px, 250px);
 
 @include respond-to(tablet) {
   width: unit-vw(100px, tablet);
   //or
-  width: unit-pc(100px, tablet);
+  width: unit-pc(100px, 500px);
 }
 ```
 
@@ -82,7 +82,7 @@ Use the mixin `sc-font-face`:
 @mixin sc-font-face($name, $filenameBase: null, $weight: normal, $style: null, $dir: $sc-font-dir, $exts: eot woff woff2 ttf, $ie8fix: true);
 
 //example
-@include sc-font-face(OpenSans, OpenSans-Regular, bold);
+@include sc-font-face(OpenSans, OpenSans-Bold, bold);
 ```
 
 Notes:
@@ -258,10 +258,6 @@ Sprite position and dimensions will adapt to the `.sprite-wrap` container width.
 ### Utilities
 As for now, the framework comes with 2 helper mixins: `clearfix` and `input-placeholder` (for placeholder styling).
 
-
-## TODO
-* register in [Bower][bower]
-* and more
 
 
 
