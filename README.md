@@ -10,17 +10,19 @@ A SASS-based framework with useful mixins. Originally a part of the [Frontend-st
 * utilities: clearfix, font-face, placeholder styling
 
 ## Installation
-* Bower install
+
+### Bower install
 Add `sass-core` to your `bower.json` dependencies
 
-* Manual install
+### Manual install
 Unpack the contents of `dist` directory to the desired dir
 
-*First* include [SASS Breakpoint] file, then SASS-core file.
+### Importing
+**First** import [SASS Breakpoint][sass-breakpoint] file, then SASS-core file (`_sass-core.scss`).
 
 
 ## Manual
-By default, sass-core uses the [SASS Breakpoint][sass-breakpoint] and [mobile first approach](http://www.google.com/search?q=mobile+first). The predefined in `_config.scss` breakpoints are (you can change any options by setting variables before importing the framework SASS file):
+By default, SASS-core uses the [SASS Breakpoint][sass-breakpoint] and [mobile first approach](http://www.google.com/search?q=mobile+first). The predefined in `_config.scss` breakpoints are (you can change any options by setting variables before importing the framework):
 * main, defined as min-width: `mobile`, `tablet`, `desktop` (when you want to target viewport with at least specified width)
 * main, defined as exact ranges: `mobile-ex`, `tablet-ex`, `desktop-ex` (when you want to target only the specified range)
 * auxiliary (small and large variations), defined as exact ranges: `mobile-sm`, `mobile-lg`, `tablet-sm`, `tablet-lg`, `desktop-sm`, `desktop-lg`
@@ -82,7 +84,7 @@ font-size: unit-vw(16px, mobile);
 ### Fonts
 
 #### Enabling font-face
-Use the mixin `sc-font-face`, here is its declaration:
+Use the mixin `sc-font-face`:
 ```sass
 @mixin sc-font-face($name, $filenameBase: null, $weight: normal, $style: null, $dir: $sc-font-dir, $exts: eot woff woff2 ttf, $ie8fix: true);
 
@@ -91,26 +93,31 @@ Use the mixin `sc-font-face`, here is its declaration:
 ```
 
 Notes:
-* `$filenameBase`: if not set (file name without extension), the `$name` is assumed
-* `$dir`: default font dir (relative to css output dir) defined in `$sc-font-dir` is `fonts` (`css/fonts`)
+* `$name`: font-family name you will refer to in the stylesheets
+* `$filenameBase`: if not set, the `$name` is assumed for the filename (without extension)
+* `$dir`: font dir relative to the css output dir; defaults to the `$sc-font-dir` value, i.e. `fonts` (`css/fonts`)
 * `$ie8fix`: adds the IE8 support
 
-#### Responsive size: px, rem, vw
+#### Responsive size: px
 Use the `font-px` mixin, specifying the font sizes for the breakpoints, i.e.:
 ```sass
 @include font-px($mobile: 15px, $tablet: 13px, $desktop: 17px);
 ```
 
-Use the `font-rem` mixin, specifying the font sizes and base font sizes for the breakpoints, i.e.:
+#### Responsive size: rem
+Use the `font-rem` mixin, specifying the font sizes (as a map) and base font sizes for the breakpoints, i.e.:
 ```sass
 @include font-rem((mobile: 10px, tablet: 15px), $mobile: 15px, $tablet: 13px);
 ```
+This "raw" usage is rather not useful - you should take a look at [font sets](#styles-font-sets).
 
+#### Responsive size: vw
 To make the font size dependent on the viewport width, use the `font-vw` mixin, specifying the maximum font sizes for the breakpoints, i.e.:
 ```sass
 @include font-vw($mobile: 15px, $tablet: 13px, $desktop: 17px);
 ```
 
+#### Responsive size: the result
 Media queries will be automatically created. Produced CSS code will be similar to (example for vw unit; px size is just a fallback for browsers not supporting this unit):
 ```css
 /* mobile */
@@ -137,10 +144,11 @@ font-size: unit-vw(15px, mobile);
 Available breakpoints: `mobile`, `tablet`, `desktop`, `mobile-sm`, `tablet-sm`. You can override media query breakpoints with [design breakpoints](#styles-design-breakpoints).
 
 
+<a name="styles-font-sets"></a>
 #### Responsive size with font sets
 It often happens that you have some number of standard font sizes on the website. To use the `font-*` mixins more conveniently, you can predefine these font sizes, before the framework SASS import:
 ```sass
-$font-sets: (
+$sc-font-sets: (
 
   /* small font */
   sm: (mobile: 15px, tablet: 13px, desktop: 17px),
@@ -165,16 +173,22 @@ This will produce same code as:
 @include font-vw($mobile: 15px, $tablet: 13px, $desktop: 17px);
 ```
 
-When using `font-rem` mixin, you must aways specify the sizes for the desired breakpoints, like:
+##### Font sets with rems
+When using `font-rem` mixin, you must aways specify the sizes for the desired breakpoints (because font set px sizes are taken as a base), like:
 ```sass
 @include font-rem(md, (mobile: 21px, tablet: 20px));
 ```
-For rems, if you specify a map instead of a string for the first parameter, a default font set is taken and the parameter is considered as font sizes. So the above code is equal to:
+Notice, that if you pass a map instead of a string as the first parameter, a default font set is assumed and the parameter is considered as font sizes. Shortly, the above code is equal to:
 ```sass
 @include font-rem((mobile: 21px, tablet: 20px));
 ```
 
-Default font set is defined by `$font-set-default` variable (defaults to `md`).
+Default font set is defined by `$sc-font-set-default` variable (defaults to `md`). Set your root font size like this:
+```sass
+html {
+  @include font-px(md);
+}
+```
 
 
 
