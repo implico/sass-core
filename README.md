@@ -137,15 +137,13 @@ font-size: 1.69492vw;
 ##### Functions: rem, vw
 If you don't want to create media queries, you can use the `unit-rem` and `unit-vw` directly.
 ```sass
-font-size: unit-vw(15px, mobile);
-font-size: unit-vw(15px, my-other-design-breakpoint-name);
-font-size: unit-vw(15px, 500px);
+font-size: unit-vw(15px, 500px);  //500px: base width to calculate vw
+font-size: unit-vw(15px, mobile); //mobile: design breakpoint name
 
-font-size: unit-rem(15px, 20px);  //20px is a base size
-font-size: unit-rem(15px, md);    //md is a font set name
+font-size: unit-rem(15px, 20px);  //20px: base font size to calculate rem
+font-size: unit-rem(15px, md);    //md: font set name
+font-size: unit-rem(15px);        //with no second argument, default font set is assumed as a base
 ```
-
-You can pass a *name of a breakpoint/[design breakpoint](#styles-design-breakpoints)* or a width value in px.
 
 
 <a name="styles-font-sets"></a>
@@ -174,15 +172,21 @@ Then, use `font-*` mixin, specifying only the font set name, like:
 
 This will produce same code as:
 ```sass
-@include font-vw($mobile: 15px, $tablet: 13px, $desktop: 17px);
+@include font-vw((mobile: 15px, tablet: 13px, desktop: 17px));
 ```
+
+You can change any of the font set size, by passing a map as a second parameter:
+```sass
+@include font-vw(sm, (mobile: 12px)); //mobile size changed, other left according to the font set
+```
+
 
 ###### Font sets and rems
 When using `font-rem` mixin, you must aways specify the sizes for the desired breakpoints (because font set px sizes are taken as a base), like:
 ```sass
 @include font-rem(md, (mobile: 21px, tablet: 20px));
 ```
-Notice, that if you pass a map instead of a string as the first parameter, default font set is assumed and the parameter is considered as font sizes. Shortly, the above code is equal to:
+Notice, that if you pass a map instead of a string as the first parameter and not pass the second, default font set is assumed as a base and the parameter is considered as font sizes. Shortly, the above code is equal to:
 ```sass
 @include font-rem((mobile: 21px, tablet: 20px));
 ```

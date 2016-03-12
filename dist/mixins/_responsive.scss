@@ -3,7 +3,7 @@
 // =============================================================================
 
 //converts px value to rem according to font set or literally passed px base
-@function unit-rem($sizePx, $fontSetOrBaseSizePx: mobile) {
+@function unit-rem($sizePx, $fontSetOrBaseSizePx: $sc-font-set-default) {
   $baseSizePx: $fontSetOrBaseSizePx;
   @if type-of($fontSetOrBaseSizePx) == string {
     $baseSizePx: map_get($sc-font-sets, $fontSetOrBaseSizePx);
