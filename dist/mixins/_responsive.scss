@@ -58,7 +58,7 @@
 // =============================================================================
 
 @mixin grid-cont($gutter) {
-  $fs-grid-last-gutter: $gutter !global;
+  $sc-grid-last-gutter: $gutter !global;
   
   $gutter: $gutter/2;
   padding-left: $gutter;
@@ -70,7 +70,7 @@
 @mixin grid-row($gutter: null, $clearfix: true) {
   
   @if ($gutter == null) {
-    $gutter: $fs-grid-last-gutter;
+    $gutter: $sc-grid-last-gutter;
   }
   
   $gutter: $gutter/2;
@@ -84,7 +84,7 @@
 
 @mixin grid-col($width, $gutter: null) {
   @if ($gutter == null) {
-    $gutter: $fs-grid-last-gutter;
+    $gutter: $sc-grid-last-gutter;
   }
 
   $gutter: $gutter/2;
@@ -155,19 +155,19 @@
   @else {
 
     @if ($breakpoint == mobile) {
-      @return $fs-mobile-max;
+      @return $sc-mobile-max;
     }
     @elseif ($breakpoint == mobile-sm) {
-      @return $fs-mobile-sm-max;
+      @return $sc-mobile-sm-max;
     }
     @else if ($breakpoint == tablet) {
-      @return $fs-tablet-max;
+      @return $sc-tablet-max;
     }
     @else if ($breakpoint == tablet-sm) {
-      @return $fs-tablet-sm-max;
+      @return $sc-tablet-sm-max;
     }
     @else if ($breakpoint == desktop) {
-      @return $fs-desktop-min;
+      @return $sc-desktop-min;
     }
   }
 }

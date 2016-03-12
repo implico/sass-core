@@ -12,15 +12,15 @@ A SASS-based framework with useful mixins. Originally a part of the [Frontend-st
 ## Installation
 
 ### Bower install
-Add `sass-core` to your `bower.json` dependencies
+Add `sass-core` to your `bower.json` dependencies.
 
 ### Manual install
-Unpack the contents of `dist` directory to the desired dir
+Unpack the contents of `dist` directory to the desired dir.
 
 ### Importing
 **First** import [SASS Breakpoint][sass-breakpoint] file, then SASS-core file (`_sass-core.scss`).
 
-
+<br><br>
 ## Manual
 By default, SASS-core uses the [SASS Breakpoint][sass-breakpoint] and [mobile first approach](http://www.google.com/search?q=mobile+first). The predefined in `_config.scss` breakpoints are (you can change any options by setting variables before importing the framework):
 * main, defined as min-width: `mobile`, `tablet`, `desktop` (when you want to target viewport with at least specified width)
@@ -38,12 +38,12 @@ Build your stylesheet like this:
   /* tablet and desktop */
   @include respond-to(tablet) {
     float: left;
-    width: 50%;
+    width: 50%; //2 columns
   }
 
   /* desktop */
   @include respond-to(desktop) {
-    width: 25%;
+    width: 25%; //4 columns
   }
 
   //non-standard breakpoints
@@ -61,22 +61,15 @@ Build your stylesheet like this:
 ### Units
 Convert px units easily to vw or percentage. Just get the px dimensions of an element from the design (e.g. PSD), and use:
 ```sass
+//pass the breakpoint/design breakpoint name
 width: unit-vw(50px, mobile);
-//or
-width: unit-pc(50px, mobile);
-
-font-size: unit-rem(10px, $font-size-mobile);
-//or
-font-size: unit-vw(16px, mobile);
+//or pass the value
+font-size: unit-pc(100px, 250px);
 
 @include respond-to(tablet) {
   width: unit-vw(100px, tablet);
   //or
   width: unit-pc(100px, tablet);
-
-  font-size: unit-rem(12px, $font-size-tablet);
-  //or
-  font-size: unit-vw(14px, tablet);
 }
 ```
 
@@ -98,26 +91,31 @@ Notes:
 * `$dir`: font dir relative to the css output dir; defaults to the `$sc-font-dir` value, i.e. `fonts` (`css/fonts`)
 * `$ie8fix`: adds the IE8 support
 
-#### Responsive size: px
+
+#### Responsive sizes
+
+The most convenient way to define font sizes is to use the [font sets](#styles-font-sets). However, first the "manual" way will be presented.
+
+##### px unit
 Use the `font-px` mixin, specifying the font sizes for the breakpoints, i.e.:
 ```sass
-@include font-px($mobile: 15px, $tablet: 13px, $desktop: 17px);
+@include font-px((mobile: 15px, tablet: 13px, desktop: 17px));
 ```
 
-#### Responsive size: rem
-Use the `font-rem` mixin, specifying the font sizes (as a map) and base font sizes for the breakpoints, i.e.:
+##### rem unit
+Use the `font-rem` mixin, specifying base font sizes and the target font sizes (as a map), i.e.:
 ```sass
-@include font-rem((mobile: 10px, tablet: 15px), $mobile: 15px, $tablet: 13px);
+@include font-rem((mobile: 10px, tablet: 15px), (mobile: 15px, tablet: 13px));
 ```
-This "raw" usage is rather not useful - you should take a look at [font sets](#styles-font-sets).
 
-#### Responsive size: vw
+##### vw unit
 To make the font size dependent on the viewport width, use the `font-vw` mixin, specifying the maximum font sizes for the breakpoints, i.e.:
 ```sass
-@include font-vw($mobile: 15px, $tablet: 13px, $desktop: 17px);
+@include font-vw((mobile: 15px, tablet: 13px, desktop: 17px));
 ```
+For desktop breakpoints, px font size will be used, unless you set the `$vwDesktop` parameter to true.
 
-#### Responsive size: the result
+##### The result
 Media queries will be automatically created. Produced CSS code will be similar to (example for vw unit; px size is just a fallback for browsers not supporting this unit):
 ```css
 /* mobile */
@@ -136,17 +134,23 @@ font-size: 1.69492vw;
 }
 ```
 
+##### Functions: rem, vw
 If you don't want to create media queries, you can use the `unit-rem` and `unit-vw` directly.
 ```sass
 font-size: unit-vw(15px, mobile);
+font-size: unit-vw(15px, my-other-design-breakpoint-name);
+font-size: unit-vw(15px, 500px);
+
+font-size: unit-rem(15px, 20px);  //20px is a base size
+font-size: unit-rem(15px, md);    //md is a font set name
 ```
 
-Available breakpoints: `mobile`, `tablet`, `desktop`, `mobile-sm`, `tablet-sm`. You can override media query breakpoints with [design breakpoints](#styles-design-breakpoints).
+You can pass a *name of a breakpoint/[design breakpoint](#styles-design-breakpoints)* or a width value in px.
 
 
 <a name="styles-font-sets"></a>
-#### Responsive size with font sets
-It often happens that you have some number of standard font sizes on the website. To use the `font-*` mixins more conveniently, you can predefine these font sizes, before the framework SASS import:
+##### Responsive size with font sets
+You will probably need a more ahndy way to define font sizes. It often happens that you have some number of standard font sizes on the website. To use the `font-*` mixins more conveniently, you can predefine these font sizes, before the framework SASS import:
 ```sass
 $sc-font-sets: (
 
@@ -173,12 +177,12 @@ This will produce same code as:
 @include font-vw($mobile: 15px, $tablet: 13px, $desktop: 17px);
 ```
 
-##### Font sets with rems
+###### Font sets and rems
 When using `font-rem` mixin, you must aways specify the sizes for the desired breakpoints (because font set px sizes are taken as a base), like:
 ```sass
 @include font-rem(md, (mobile: 21px, tablet: 20px));
 ```
-Notice, that if you pass a map instead of a string as the first parameter, a default font set is assumed and the parameter is considered as font sizes. Shortly, the above code is equal to:
+Notice, that if you pass a map instead of a string as the first parameter, default font set is assumed and the parameter is considered as font sizes. Shortly, the above code is equal to:
 ```sass
 @include font-rem((mobile: 21px, tablet: 20px));
 ```
@@ -199,7 +203,7 @@ By default the base width used to calculate vw/percentage width is the width of 
 $sc-design-breakpoints: (mobile: 600px);
 ```
 
-In this case, all units for mobile, including font-vw, will be calculated according to this size.
+In this case, all units for `mobile`, including font-vw, will be calculated according to this size. If you don't set any of the design breakpoint (e.g `desktop`), the mixins fallback to the default breakpoints.
 
 
 ### Grids
