@@ -77,7 +77,7 @@ font-size: unit-pc(100px, 250px);
 
 ### Fonts
 
-#### Enabling font-face
+#### Embedding font-face
 Use the mixin `sc-font-face`:
 ```sass
 @mixin sc-font-face($name, $filenameBase: null, $weight: normal, $style: null, $dir: $sc-font-dir, $exts: eot woff woff2 ttf, $ie8fix: true);
@@ -245,8 +245,14 @@ This allows you to create fully customized column sizes (non-Bootsrap 12 cols sc
 
 
 ### Responsive sprites
-Generate sprites using [spritesmith] and import the stylesheet(s). To create a responsive sprite icon, use the mixins:
+Generate sprites using [spritesmith] and import the stylesheet(s). To use a sprite, simply uncomment the line in style.scss with sprites sheet import and use the mixin:
+```sass
+.sprite-icon {
+  @include sprite($file-name);
+}
+```
 
+To create a responsive sprite icon:
 ```sass
 .sprite-wrap {
   @include sprite-wrap-rwd($file-name);
