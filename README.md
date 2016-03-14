@@ -1,6 +1,6 @@
 # SASS-core
 
-A SASS-based framework with useful mixins. Originally a part of the [Frontend-starter][frontend-starter] framework.
+A [SASS][sass]-based framework with useful mixins. Originally a part of the [Frontend-starter][frontend-starter] framework.
 
 ## Features
 * [media queries with Breakpoint library][sass-breakpoint], configurable breakpoints
@@ -143,7 +143,7 @@ font-size: unit-vw(15px, mobile); //mobile: design breakpoint name
 
 font-size: unit-rem(15px, 20px);  //20px: base font size to calculate rem
 font-size: unit-rem(15px, md);    //md: font set name
-font-size: unit-rem(15px);        //with no second argument, default font set is assumed as a base
+font-size: unit-rem(15px);        //with no second argument, the default font set is assumed as a base
 ```
 
 
@@ -187,7 +187,7 @@ When using `font-rem` mixin, you must aways specify the sizes for the desired br
 ```sass
 @include font-rem(md, (mobile: 21px, tablet: 20px));
 ```
-Notice, that if you pass a map instead of a string as the first parameter and not pass the second, default font set is assumed as a base and the parameter is considered as font sizes. Shortly, the above code is equal to:
+Notice, that if you pass a map instead of a string as the first parameter and not pass the second, the default font set is assumed as a base and the parameter is considered as font sizes. Shortly, the above code is equal to:
 ```sass
 @include font-rem((mobile: 21px, tablet: 20px));
 ```
@@ -217,7 +217,7 @@ Quickly create a grid with the following mixins:
 .container {
 
   @include respond-to(tablet) {
-    @include grid-cont(20px);
+    @include grid-cont(20px);   //20px gutter
   }
 
   .row {
@@ -245,7 +245,7 @@ This allows you to create fully customized column sizes (non-Bootsrap 12 cols sc
 
 
 ### Sprites
-Generate sprites using [spritesmith] and import the stylesheet(s) (see the commented out line in style.scss). To use a sprite, simply use the mixin:
+Generate sprites using [spritesmith] and import the stylesheet(s) (see the commented out line in `style.scss`). To use a sprite, simply use the mixin:
 ```sass
 .sprite-icon {
   @include sprite($file-name);
@@ -269,6 +269,13 @@ Sprite position and dimensions will adapt to the `.sprite-wrap` container width.
 ### Utilities
 As for now, the framework comes with 2 helper mixins: `clearfix` and `input-placeholder` (for placeholder styling).
 
+```sass
+@include clearfix;
+
+@include input-placeholder {
+  color: #000;
+}
+```
 
 
 
