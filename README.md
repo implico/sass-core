@@ -63,9 +63,9 @@ Build your stylesheet like this:
 Convert px units easily to vw or percentage. Just get the px dimensions of an element from the design (e.g. PSD), and use:
 ```sass
 //pass the width and container width as a breakpoint/design breakpoint name
-width: unit-vw(50px, mobile);
+width: unit-vw(50px, mobile); //~6,519vw if mobile breakpoint is 767px
 //or pass container width as a value
-font-size: unit-pc(100px, 250px);
+font-size: unit-pc(100px, 250px); //40%
 
 @include respond-to(tablet) {
   width: unit-vw(100px, tablet);
@@ -178,7 +178,7 @@ This will produce same code as:
 
 You can change any font set size, by passing a map as a second parameter:
 ```sass
-@include font-vw(sm, (mobile: 12px)); //mobile size changed, other left according to the font set
+@include font-vw(sm, (mobile: 12px)); //mobile size changed, other sizes left unmodified according to the font set
 ```
 
 
