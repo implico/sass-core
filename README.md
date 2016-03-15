@@ -149,7 +149,7 @@ font-size: unit-rem(15px);        //with no second argument, default font set is
 
 <a name="styles-font-sets"></a>
 ##### Responsive size with font sets
-You will probably need a more ahndy way to define font sizes. It often happens that you have some number of standard font sizes on the website. To use the `font-*` mixins more conveniently, you can predefine these font sizes, before the framework SASS import:
+You will probably need a more handy way to define font sizes. It often happens that you have some number of standard font sizes on the website. To use the `font-*` mixins more conveniently, you can predefine these font sizes, before the framework SASS import:
 ```sass
 $sc-font-sets: (
 

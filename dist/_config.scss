@@ -51,4 +51,4 @@ $sc-font-set-default: md !default;
 $sc-font-dir: 'fonts/' !default;
 
 //breakpoints for which font vw is not set (px value is used)
-$sc-font-conv-vw-exclude: (desktop, desktop-lg);
+$sc-font-conv-vw-exclude: (desktop, desktop-lg) !default;
