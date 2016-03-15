@@ -99,7 +99,7 @@
 // Font face, modified from: https://gist.github.com/jonathantneal/d0460e5c2d5d7f9bc5e6#file-_mixins-scss-L30
 // =============================================================================
 
-@mixin sc-font-face($name, $filenameBase: null, $weight: normal, $style: null, $dir: $sc-font-dir, $exts: eot woff woff2 ttf, $ie8fix: true) {
+@mixin sc-font-face($name, $filenameBase: null, $weight: normal, $style: null, $dir: $sc-font-dir, $exts: $sc-font-formats, $ie8fix: true) {
   @if $filenameBase == null {
     $filenameBase: $name;
   }
