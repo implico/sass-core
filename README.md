@@ -80,7 +80,7 @@ font-size: unit-pc(100px, 250px); //40%
 #### Embedding font-face
 Use the mixin `sc-font-face`:
 ```sass
-@mixin sc-font-face($name, $filenameBase: null, $weight: normal, $style: null, $dir: $sc-font-dir, $exts: eot woff woff2 ttf, $ie8fix: true);
+@mixin sc-font-face($name, $filenameBase: null, $weight: normal, $style: null, $dir: $sc-font-dir, $exts: $sc-font-formats, $ie8fix: true);
 
 //example
 @include sc-font-face(OpenSans, OpenSans-Bold, bold);
@@ -90,6 +90,7 @@ Notes:
 * `$name`: font-family name you will refer to in the stylesheets
 * `$filenameBase`: if not set, the `$name` is assumed for the filename (without extension)
 * `$dir`: font dir relative to the css output dir; defaults to the `$sc-font-dir` value, i.e. `fonts` (`css/fonts`)
+* `$exts`: file extensions separated by space; defaults to `eot woff woff2 ttf`
 * `$ie8fix`: adds the IE8 support
 
 
