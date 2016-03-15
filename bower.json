@@ -1,7 +1,7 @@
 {
   "name": "sass-core",
   "description": "A SASS-based framework with useful mixins and concepts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/_sass-core.scss",
   "ignore": [],
 
