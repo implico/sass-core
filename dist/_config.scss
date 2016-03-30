@@ -54,3 +54,14 @@ $sc-font-formats: eot woff woff2 ttf !default;
 
 //breakpoints for which font vw is not set (px value is used)
 $sc-font-conv-vw-exclude: (desktop, desktop-lg) !default;
+
+//font weights
+$font-w-xlight: 100 !default;
+$font-w-light: 200 !default;
+$font-w-book: 300 !default;
+$font-w-normal: 400 !default;
+$font-w-medium: 500 !default;
+$font-w-semibold: 600 !default;
+$font-w-bold: 700 !default;
+$font-w-black: 800 !default;
+$font-w-xblack: 900 !default;
