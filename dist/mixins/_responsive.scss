@@ -2,6 +2,11 @@
 // Unit converters
 // =============================================================================
 
+//returns the given breakpoint width
+@function unit-px($breakpoint: mobile, $useDesignBreakpoints: true) {
+  @return breakpoint-px($breakpoint, $useDesignBreakpoints);
+}
+
 //converts px value to rem according to font set or literally passed px base
 @function unit-rem($sizePx, $fontSetOrBaseSizePx: $sc-font-set-default) {
   $baseSizePx: $fontSetOrBaseSizePx;
@@ -165,14 +170,14 @@
     @else if ($breakpoint == tablet-sm) {
       @return $sc-tablet-sm-max;
     }
-    @else if ($breakpoint == desktop) {
+    @else if (($breakpoint == desktop) or ($breakpoint == desktop-sm)) {
       @return $sc-desktop-min;
     }
     @else if ($breakpoint == desktop-lg) {
-      @return $sc-desktop-min;
+      @return $sc-desktop-lg-min;
     }
     @else {
-      @warn 'sass-core/breakpoint-px: breakpoint: ' + $breakpoint + ' not allowed!';
+      @warn 'sass-core/breakpoint-px: breakpoint "' + $breakpoint + '" not allowed!';
     }
   }
 }
