@@ -104,8 +104,7 @@
 //used for sprite wrapper
 @mixin sprite-wrap-rwd($sprite) {
   $image-width: nth($sprite, 5);
-  width: $image-width;
-  max-width: 100%;
+  max-width: $image-width;
 }
 
 //used for sprite container

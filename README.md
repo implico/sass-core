@@ -252,7 +252,7 @@ Generate sprites using [spritesmith] and import the stylesheet(s) (see the comme
 }
 ```
 
-To create a **responsive sprite icon**:
+To create a **responsive sprite icon** you can wrap it in `sprite-wrap-rwd` mixin, so the `max-width` property will be set to the actual sprite dimensions:
 ```sass
 .sprite-wrap {
   @include sprite-wrap-rwd($file-name);
