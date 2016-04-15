@@ -96,38 +96,46 @@ Notes:
 
 #### Responsive sizes
 
-The most convenient way to define font sizes is to use the [font sets](#styles-font-sets). However, first the "manual" way will be presented.
+The following mixins produce appropriate media queries:
 
 ##### px unit
-Use the `font-px` mixin, specifying the font sizes for the breakpoints, i.e.:
+Use the `font-px` mixin, specifying font sizes for the breakpoints, i.e.:
 ```sass
 @include font-px((mobile: 15px, tablet: 13px, desktop: 17px));
 ```
 
 ##### rem unit
-Use the `font-rem` mixin, specifying base font sizes and the target font sizes (as a map), i.e.:
+Use the `font-rem` mixin, specifying target font sizes as a map, i.e.:
 ```sass
-@include font-rem((mobile: 10px, tablet: 15px), (mobile: 15px, tablet: 13px));
+@include font-rem((mobile: 15px, tablet: 13px));
 ```
+
+The default [font set](#styles-font-sets) is taken, you can also pass a different font set name or a breakpoint font size map as a second parameter.
 
 ##### vw unit
 To make the font size dependent on the viewport width, use the `font-vw` mixin, specifying the maximum font sizes for the breakpoints, i.e.:
 ```sass
-@include font-vw((mobile: 15px, tablet: 13px, desktop: 17px));
+@include font-vw((mobile: 15px, mobile-sm: 14px, tablet: 13px, desktop: 17px));
 ```
 For desktop breakpoints, px font size will be used - you can change the `$sc-font-conv-vw-exclude` config variable (list) or pass it as a `$vwExcludeBreakpoints` parameter.
 
 ##### The result
-Media queries will be automatically created. Produced CSS code will be similar to (example for vw unit; px size is just a fallback for browsers not supporting this unit):
+Media queries will be automatically created. Produced CSS code will be similar to (example for vw unit; px size is just a fallback for browsers not supporting this unit, multiplied by a 0.9 ratio):
 ```css
 /* mobile */
-font-size: 12px;
-font-size: 1.69492vw;
+font-size: 14px;
+font-size: 1.95567vw;
+
+/* mobile-sm */
+@media (max-width: 479px) {
+  font-size: 13px;
+  font-size: 2.92276vw;
+}
 
 /* tablet */
 @media (min-width: 768px) {
-  font-size: 14px;
-  font-size: 1.51362vw;
+  font-size: 12px;
+  font-size: 1.31181vw;
 }
 
 /* desktop */

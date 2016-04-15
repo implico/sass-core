@@ -6,7 +6,7 @@
   @include font-conv($fontSet, $sizesPx, px);
 }
 
-@mixin font-rem($fontSet: $sc-font-set-default, $sizesPx: null) {
+@mixin font-rem($sizesPx: null, $fontSet: $sc-font-set-default) {
   @include font-conv($fontSet, $sizesPx, rem);
 }
 
