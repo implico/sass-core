@@ -257,17 +257,20 @@ This allows you to create fully customized column sizes (non-Bootsrap 12 cols sc
 Generate sprites using [spritesmith] and import the stylesheet(s) (see the commented out line in `style.scss`). To use a sprite, simply use the mixin:
 ```sass
 .sprite-icon {
-  @include sprite($file-name);
+  @include sprite($[prefix]file-name);
+
+  //e.g. sprite of my-image.png (frontend-starter by default adds "sprite" prefix)
+  @include sprite($sprite-my-image)
 }
 ```
 
 To create a **responsive sprite icon** you can wrap it in `sprite-wrap-rwd` mixin, so the `max-width` property will be set to the actual sprite dimensions:
 ```sass
 .sprite-wrap {
-  @include sprite-wrap-rwd($file-name);
+  @include sprite-wrap-rwd($[prefix]file-name);
 
   .sprite {
-    @include sprite-rwd($file-name);
+    @include sprite-rwd($[prefix]file-name);
   }
 }
 ```
