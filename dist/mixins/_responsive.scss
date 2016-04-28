@@ -108,29 +108,33 @@
 
 //used for sprite wrapper
 @mixin sprite-wrap-rwd($sprite) {
-  $image-width: nth($sprite, 5);
-  max-width: $image-width;
+  $sprite-width: nth($sprite, 5);
+  max-width: $sprite-width;
 }
 
 //used for sprite container
-@mixin sprite-rwd($sprite) {
+@mixin sprite-rwd($sprite, $useSpritesheet: null) {
   @include sprite-image($sprite);
 
-  $sprite-width: strip-units($spritesheet-width);
-  $sprite-height: strip-units($spritesheet-height);
-  $image-width: strip-units(nth($sprite, 5));
-  $image-height: strip-units(nth($sprite, 6));
-  $image-pos-x: strip-units(nth($sprite, 1));
-  $image-pos-y: strip-units(nth($sprite, 2));
-  $sprite-size-x: ($sprite-width / $image-width) * 100%;
-  $sprite-size-y: ($sprite-height / $image-height) * 100%;
+  @if not $useSpritesheet {
+    $useSpritesheet: $spritesheet;
+  }
+
+  $image-width: strip-units(nth($useSpritesheet, 1));
+  $image-height: strip-units(nth($useSpritesheet, 2));
+  $sprite-width: strip-units(nth($sprite, 5));
+  $sprite-height: strip-units(nth($sprite, 6));
+  $sprite-offset-x: strip-units(nth($sprite, 1));
+  $sprite-offset-y: strip-units(nth($sprite, 2));
+  $sprite-size-x: ($image-width / $sprite-width) * 100%;
+  $sprite-size-y: ($image-height / $sprite-height) * 100%;
   $sprite-pos-x: 0;
   $sprite-pos-y: 0;
-  @if(($sprite-width - $image-width) > 0) {
-     $sprite-pos-x: ($image-pos-x / ($sprite-width - $image-width)) * 100%;
+  @if $image-width > $sprite-width {
+     $sprite-pos-x: ($sprite-offset-x / ($image-width - $sprite-width)) * 100%;
   }
-  @if(($sprite-height - $image-height) > 0) {
-     $sprite-pos-y: ($image-pos-y / ($sprite-height - $image-height)) * 100%;
+  @if $image-height > $sprite-height {
+     $sprite-pos-y: ($sprite-offset-y / ($image-height - $sprite-height)) * 100%;
   }
 
 
@@ -141,7 +145,7 @@
   display: inline-block;
   width: 100%;
   height: 0;
-  padding-bottom: ($image-height/$image-width) * 100%;
+  padding-bottom: ($sprite-height / $sprite-width) * 100%;
 }
 
 
