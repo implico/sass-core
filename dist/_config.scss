@@ -18,6 +18,7 @@ $sc-tablet-sm-max: 850px !default;
 @include add-breakpoint('mobile', 0);
 @include add-breakpoint('mobile-ex', max-width $sc-mobile-max);
 @include add-breakpoint('mobile-sm', max-width $sc-mobile-sm-max);
+@include add-breakpoint('mobile-lg', $sc-mobile-sm-max + 1 $sc-mobile-max);
 
 @include add-breakpoint('tablet', $sc-tablet-min);
 @include add-breakpoint('tablet-ex', $sc-tablet-min $sc-tablet-max);
