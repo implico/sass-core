@@ -4,26 +4,22 @@
 
 $sc-tablet-min: 768px !default;
 $sc-desktop-min: 992px !default;
+
+$sc-mobile-lg-min: 480px !default;
+$sc-tablet-lg-min: 850px !default;
 $sc-desktop-lg-min: 1400px !default;
-
-$sc-mobile-max: $sc-tablet-min - 1 !default;
-$sc-tablet-max: $sc-desktop-min - 1 !default;
-$sc-desktop-max: $sc-desktop-lg-min - 1 !default;
-
-$sc-mobile-sm-max: 479px !default;
-$sc-tablet-sm-max: 850px !default;
 
 
 
 @include add-breakpoint('mobile', 0);
-@include add-breakpoint('mobile-ex', max-width $sc-mobile-max);
-@include add-breakpoint('mobile-sm', max-width $sc-mobile-sm-max);
-@include add-breakpoint('mobile-lg', $sc-mobile-sm-max + 1 $sc-mobile-max);
+@include add-breakpoint('mobile-ex', max-width $sc-tablet-min - 1);
+@include add-breakpoint('mobile-sm', max-width $sc-mobile-lg-min - 1);
+@include add-breakpoint('mobile-lg', $sc-mobile-lg-min $sc-tablet-min - 1);
 
 @include add-breakpoint('tablet', $sc-tablet-min);
-@include add-breakpoint('tablet-ex', $sc-tablet-min $sc-tablet-max);
-@include add-breakpoint('tablet-sm', $sc-tablet-min $sc-tablet-sm-max);
-@include add-breakpoint('tablet-lg', $sc-tablet-sm-max + 1 $sc-tablet-max);
+@include add-breakpoint('tablet-ex', $sc-tablet-min $sc-desktop-min - 1);
+@include add-breakpoint('tablet-sm', $sc-tablet-min $sc-tablet-lg-min - 1);
+@include add-breakpoint('tablet-lg', $sc-tablet-lg-min $sc-desktop-min - 1);
 
 @include add-breakpoint('desktop', $sc-desktop-min);
 @include add-breakpoint('desktop-sm', $sc-desktop-min $sc-desktop-lg-min - 1);
@@ -51,7 +47,7 @@ $sc-font-set-default: md !default;
 //font directory for sc-font-face mixin (relative to the output css file)
 $sc-font-dir: 'fonts/' !default;
 //default font formats
-$sc-font-formats: woff woff2 !default;
+$sc-font-formats: woff woff2 !default; //add ttf eot for IE9 and old Andorid/iOS
 
 //breakpoints for which font vw is not set (px value is used)
 $sc-font-conv-vw-exclude: (desktop, desktop-lg) !default;
