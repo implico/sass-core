@@ -4,7 +4,7 @@ A [SASS][sass]-based framework with useful mixins. Originally a part of the [Fro
 
 ## Features
 * [media queries with Breakpoint library][sass-breakpoint], configurable breakpoints
-* design breakpoints - set the desing (e.g PSD) pixel dimensions and use mixins to calculate percentage or vw units
+* design breakpoints - set the desing (e.g PSD) pixel dimensions and use mixins to automatically calculate percentage or vw units
 * font sets - set the standard font sizes (for headings, paragraphs) and use a mixin to automatically generate media queries for rem/px/vw (or use converter functions if you want to add media queries manually)
 * grid building mixins
 * responsive sprites (requires [spritesmith] - available also in grunt/gulp version)
@@ -259,8 +259,8 @@ Generate sprites using [spritesmith] and import the stylesheet(s) (see the comme
 .sprite-icon {
   @include sprite($[prefix]file-name);
 
-  //e.g. sprite of my-image.png (frontend-starter by default adds "sprite" prefix)
-  @include sprite($sprite-my-image)
+  //e.g. sprite of my-image.png (no prefix)
+  @include sprite($my-image)
 }
 ```
 
@@ -275,7 +275,7 @@ To create a **responsive sprite icon** you can wrap it in `sprite-wrap-rwd` mixi
 }
 ```
 
-Sprite position and dimensions will adapt to the `.sprite-wrap` container width.
+Sprite position and dimensions will adapt to the `.sprite-wrap` container width. You should set the [spritesmith] `algorithm` option to `diagonal`. Be aware, that using this method (the mixin calculates background position and size in percentages) for large images will impact the performance in Chrome browser.
 
 
 ### Utilities
