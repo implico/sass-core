@@ -166,13 +166,13 @@
       @return $sc-mobile-max;
     }
     @elseif ($breakpoint == mobile-sm) {
-      @return $sc-mobile-sm-max;
+      @return $sc-mobile-lg-min - 1;
     }
     @else if ($breakpoint == tablet) {
-      @return $sc-tablet-max;
+      @return $sc-desktop-min - 1;
     }
     @else if ($breakpoint == tablet-sm) {
-      @return $sc-tablet-sm-max;
+      @return $sc-tablet-lg-min - 1;
     }
     @else if (($breakpoint == desktop) or ($breakpoint == desktop-sm)) {
       @return $sc-desktop-min;
