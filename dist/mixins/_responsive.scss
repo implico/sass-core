@@ -163,7 +163,7 @@
   @else {
 
     @if ($breakpoint == mobile) {
-      @return $sc-mobile-max;
+      @return $sc-tablet-min - 1;
     }
     @elseif ($breakpoint == mobile-sm) {
       @return $sc-mobile-lg-min - 1;
