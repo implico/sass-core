@@ -75,9 +75,11 @@
 @mixin grid-row($gutter: null, $clearfix: true) {
   
   @if ($gutter == null) {
-    $gutter: $sc-grid-last-gutter;
+    $sc-grid-last-gutter: 0 !default;
+    $gutter:  $sc-grid-last-gutter;
   }
-  
+  $sc-grid-last-gutter: $gutter !default !global;
+
   $gutter: $gutter/2;
 
   @if ($clearfix) {
@@ -89,8 +91,10 @@
 
 @mixin grid-col($width, $gutter: null) {
   @if ($gutter == null) {
-    $gutter: $sc-grid-last-gutter;
+    $sc-grid-last-gutter: 0 !default;
+    $gutter:  $sc-grid-last-gutter;
   }
+  //$sc-grid-last-gutter: $gutter !default !global;
 
   $gutter: $gutter/2;
 
