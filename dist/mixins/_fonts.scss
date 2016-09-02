@@ -6,33 +6,24 @@
   @include font-conv($fontSet, $sizesPx, px);
 }
 
-@mixin font-rem($sizesPx: null, $fontSet: $sc-font-set-default) {
+@mixin font-rem($fontSet: $sc-font-set-default, $sizesPx: null) {
   @include font-conv($fontSet, $sizesPx, rem);
 }
 
-@mixin font-vw($fontSet: $sc-font-set-default, $sizesPx: (), $vwExcludeBreakpoints: $sc-font-conv-vw-exclude, $vwFallbackRatio: 0.9) {
+@mixin font-vw($fontSet: $sc-font-set-default, $sizesPx: (), $vwExcludeBreakpoints: $sc-font-conv-vw-exclude, $vwFallbackRatio: $sc-font-conv-vw-fallback-ratio) {
   @include font-conv($fontSet, $sizesPx, vw, $vwExcludeBreakpoints, $vwFallbackRatio);
 }
 
 //universal mixin for rem/percent/px definitions
 //generates breakpoints for font sizes converted to specified units (vw, rem or left as px)
 //uses specified font set info or passed breakpoint px width as a base
-@mixin font-conv($fontSet: $sc-font-set-default, $sizesPx: null, $targetUnit: rem, $vwExcludeBreakpoints: $sc-font-conv-vw-exclude, $vwFallbackRatio: 0.9) {
+@mixin font-conv($fontSet: $sc-font-set-default, $sizesPx: null, $targetUnit: rem, $vwExcludeBreakpoints: $sc-font-conv-vw-exclude, $vwFallbackRatio: $sc-font-conv-vw-fallback-ratio) {
   $isPx: $targetUnit == px;
   $isRem: $targetUnit == rem;
   $isVw: $targetUnit == vw;
 
-  //rem: if font set is a map and $sizesPx not set, it is considered as sizes and default font set is assumed
-  @if $isRem and (type-of($fontSet) == map) and ($sizesPx == null) {
-    $sizesPx: $fontSet;
-    $fontSet: $sc-font-set-default;
-  }
-
   @if not $isPx and not $isRem and not $isVw {
     @warn 'sass-core/font-conv: Wrong target unit!';
-  }
-  @else if $isRem and (type-of($sizesPx) != map) {
-    @warn 'sass-core/font-conv: Rem base sizes must be a map of (breakpoint-name: size-px) values!';
   }
   @else {
 
@@ -45,48 +36,47 @@
       $breakpointInfo: $fontSet;
     }
 
-    @if not $isRem and (type-of($sizesPx) == map) {
+    @if type-of($sizesPx) == map {
       $breakpointInfo: map-merge($breakpointInfo, $sizesPx);
     }
 
     @each $breakpoint, $size in $breakpointInfo {
-
-      @if not $isRem or map-has-key($sizesPx, $breakpoint) {
-
-        @if $breakpoint == mobile {
+      @if $breakpoint == mobile {
+        @if $isPx {
+          font-size: $size;
+        }
+        @else if $isRem {
+          font-size: unit-rem($size);
+        }
+        @else if $isVw {
+          @if index($vwExcludeBreakpoints, $breakpoint) != null {
+            font-size: $size;
+          }
+          @else {
+            if $vwFallbackRatio > 0 {
+              font-size: round($size * $vwFallbackRatio); //fallback
+            }
+            font-size: unit-vw($size, $breakpoint);
+          }
+        }
+      }
+      @else {
+        @include respond-to($breakpoint) {
           @if $isPx {
             font-size: $size;
           }
           @else if $isRem {
-            font-size: unit-rem(map-get($sizesPx, $breakpoint), $size);
+            font-size: unit-rem($size);
           }
           @else if $isVw {
             @if index($vwExcludeBreakpoints, $breakpoint) != null {
               font-size: $size;
             }
             @else {
-              font-size: round($size * $vwFallbackRatio); //fallback
-              font-size: unit-vw($size, $breakpoint);
-            }
-          }
-        }
-        @else {
-          @include respond-to($breakpoint) {
-
-            @if $isPx {
-              font-size: $size;
-            }
-            @else if $isRem {
-              font-size: unit-rem(map-get($sizesPx, $breakpoint), $size);
-            }
-            @else if $isVw {
-              @if index($vwExcludeBreakpoints, $breakpoint) != null {
-                font-size: $size;
-              }
-              @else {
+              if $vwFallbackRatio > 0 {
                 font-size: round($size * $vwFallbackRatio); //fallback
-                font-size: unit-vw($size, $breakpoint);
               }
+              font-size: unit-vw($size, $breakpoint);
             }
           }
         }

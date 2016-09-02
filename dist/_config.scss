@@ -37,28 +37,35 @@ $sc-design-breakpoints: () !default;
 // =============================================================================
 $sc-font-sets: (
   sm: (mobile: 14px, tablet: 14px, desktop: 14px),
-  md: (mobile: 16px, tablet: 18px, desktop: 16px),
+  md: (mobile: 16px, tablet: 16px, desktop: 16px),
   lg: (mobile: 22px, tablet: 22px, desktop: 22px)
 ) !default;
 
 //default font set for font-* mixins
 $sc-font-set-default: md !default;
 
+//base font size used to calculate rem values
+$sc-font-rem-base: 16px !default;
+
 //font directory for sc-font-face mixin (relative to the output css file)
 $sc-font-dir: 'fonts/' !default;
+
 //default font formats
 $sc-font-formats: woff woff2 !default; //add ttf eot for IE9 and old Andorid/iOS
 
 //breakpoints for which font vw is not set (px value is used)
 $sc-font-conv-vw-exclude: (desktop, desktop-lg) !default;
 
+//px fallback ratio for font vw units (set to 0 to disable fallback)
+$sc-font-conv-vw-fallback-ratio: 0.8 !default;
+
 //font weights
-$font-w-xlight: 100 !default;
-$font-w-light: 200 !default;
-$font-w-book: 300 !default;
+$font-w-thin: 100 !default;
+$font-w-xlight: 200 !default;
+$font-w-light: 300 !default;
 $font-w-normal: 400 !default;
 $font-w-medium: 500 !default;
 $font-w-semibold: 600 !default;
 $font-w-bold: 700 !default;
-$font-w-black: 800 !default;
-$font-w-xblack: 900 !default;
+$font-w-xbold: 800 !default;
+$font-w-black: 900 !default;

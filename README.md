@@ -64,8 +64,10 @@ Convert px units easily to vw or percentage. Just get the px dimensions of an el
 ```sass
 //pass the width and container width as a breakpoint/design breakpoint name
 width: unit-vw(50px, mobile); //~6,519vw if mobile breakpoint is 767px
-//or pass container width as a value
-font-size: unit-pc(100px, 250px); //40%
+//you can omit breakpoint name for mobile, as it is default, so the previous rule is same as:
+width: unit-vw(50px);
+//...or pass container width as a value
+width: unit-pc(100px, 250px); //40%
 
 @include respond-to(tablet) {
   width: unit-vw(100px, tablet);
@@ -90,8 +92,8 @@ Notes:
 * `$name`: font-family name you will refer to in the stylesheets
 * `$filenameBase`: if not set, the `$name` is assumed for the filename (without extension)
 * `$dir`: font dir relative to the css output dir; defaults to the `$sc-font-dir` value, i.e. `fonts` (`css/fonts`)
-* `$exts`: file extensions separated by space; defaults to `eot woff woff2 ttf`
-* `$ie8fix`: adds the IE8 support
+* `$exts`: file extensions separated by space; defaults to the `$sc-font-formats` value, i.e. `woff woff2` (for full support, including old IE, set to `eot woff woff2 ttf svg`)
+* `$ie8fix`: adds the IE8 support (if svg/eot formats are enabled)
 
 
 #### Responsive sizes
@@ -99,13 +101,13 @@ Notes:
 The following mixins produce appropriate media queries:
 
 ##### px unit
-Use the `font-px` mixin, specifying font sizes for the breakpoints, i.e.:
+Use the `font-px` mixin, specifying font sizes for the breakpoints, e.g.:
 ```sass
 @include font-px((mobile: 15px, tablet: 13px, desktop: 17px));
 ```
 
 ##### rem unit
-Use the `font-rem` mixin, specifying target font sizes as a map, i.e.:
+Use the `font-rem` mixin, specifying target font sizes as a map, e.g.:
 ```sass
 @include font-rem((mobile: 15px, tablet: 13px));
 ```
@@ -113,14 +115,14 @@ Use the `font-rem` mixin, specifying target font sizes as a map, i.e.:
 The default [font set](#styles-font-sets) is taken, you can also pass a different font set name or a breakpoint font size map as a second parameter.
 
 ##### vw unit
-To make the font size dependent on the viewport width, use the `font-vw` mixin, specifying the maximum font sizes for the breakpoints, i.e.:
+To make the font size dependent on the viewport width, use the `font-vw` mixin, specifying the maximum font sizes for the breakpoints, e.g.:
 ```sass
 @include font-vw((mobile: 15px, mobile-sm: 14px, tablet: 13px, desktop: 17px));
 ```
-For desktop breakpoints, px font size will be used - you can change the `$sc-font-conv-vw-exclude` config variable (list) or pass it as a `$vwExcludeBreakpoints` parameter.
+For desktop breakpoints (desktop, desktop-lg), the `px` font size unit will always be used - you can change the `$sc-font-conv-vw-exclude` config variable (list) or pass it as a `$vwExcludeBreakpoints` parameter.
 
 ##### The result
-Media queries will be automatically created. Produced CSS code will be similar to (example for vw unit; px size is just a fallback for browsers not supporting this unit, multiplied by a 0.9 ratio):
+Media queries will be automatically created. Produced CSS code will be similar to (example for vw unit; px size is just a fallback for browsers not supporting this unit):
 ```css
 /* mobile */
 font-size: 14px;
@@ -144,15 +146,18 @@ font-size: 1.95567vw;
 }
 ```
 
+The pixel fallback for vw units is a value multiplied by ratio defined in `$sc-font-conv-vw-fallback-ratio` (defaults to `0.8`). Set it to `0` to drop the fallback.
+
+
 ##### Functions: rem, vw
 If you don't want to create media queries, you can use the `unit-rem` and `unit-vw` directly.
 ```sass
-font-size: unit-vw(15px, 500px);  //500px: base width to calculate vw
-font-size: unit-vw(15px, mobile); //mobile: design breakpoint name
+font-size: unit-vw(15px);           //by default, mobile breakpoint is assumed
+font-size: unit-vw(15px, 500px);    //500px: base width to calculate vw
+font-size: unit-vw(15px, desktop);  //desktop: design breakpoint name
 
-font-size: unit-rem(15px, 20px);  //20px: base font size to calculate rem
-font-size: unit-rem(15px, md);    //md: font set name
-font-size: unit-rem(15px);        //with no second argument, the default font set is assumed as a base
+font-size: unit-rem(15px);          //by default, the $sc-font-rem-base config value is used (defaults to 16px)
+font-size: unit-rem(15px, 20px);    //20px: custom base font size to calculate rem
 ```
 
 
@@ -180,34 +185,31 @@ Then, use `font-*` mixin, specifying only the font set name, like:
 @include font-vw(sm);
 ```
 
-This will produce same code as:
+This will produce same code as (according to the `md` font set definition):
 ```sass
 @include font-vw((mobile: 15px, tablet: 13px, desktop: 17px));
 ```
 
 You can change any font set size, by passing a map as a second parameter:
 ```sass
-@include font-vw(sm, (mobile: 12px)); //mobile size changed, other sizes left unmodified according to the font set
+@include font-px(sm, (mobile: 12px)); //mobile size changed, other sizes left unmodified according to the font set
 ```
 
+Default font set is defined by `$sc-font-set-default` variable (defaults to `md`).
 
-###### Font sets and rems
-When using `font-rem` mixin, you must aways specify the sizes for the desired breakpoints (because font set px sizes are taken as a base), like:
+You can set your default font size like this:
 ```sass
-@include font-rem(md, (mobile: 21px, tablet: 20px));
-```
-Notice, that if you pass a map instead of a string as the first parameter and not pass the second, the default font set is assumed as a base and the parameter is considered as font sizes. Shortly, the above code is equal to:
-```sass
-@include font-rem((mobile: 21px, tablet: 20px));
-```
-
-Default font set is defined by `$sc-font-set-default` variable (defaults to `md`). Set your root font size like this:
-```sass
-html {
+body {
   @include font-px(md);
 }
 ```
 
+If you use `rem` units and change the default base font size, by assigning it to the `$sc-font-rem-base` variable, remember to set it also in your stylesheet:
+```sass
+html {
+  font-size: $sc-font-rem-base;
+}
+```
 
 
 <a name="styles-design-breakpoints"></a>
@@ -287,6 +289,22 @@ As for now, the framework comes with 2 helper mixins: `clearfix` and `input-plac
 @include input-placeholder {
   color: #000;
 }
+```
+
+
+### Helper variables
+As for now there are only font-weight helpers. Use the following variables instead of literals like `300`, `800`:
+
+```sass
+$font-w-thin: 100 !default;
+$font-w-xlight: 200 !default;
+$font-w-light: 300 !default;
+$font-w-normal: 400 !default;
+$font-w-medium: 500 !default;
+$font-w-semibold: 600 !default;
+$font-w-bold: 700 !default;
+$font-w-xbold: 800 !default;
+$font-w-black: 900 !default;
 ```
 
 
