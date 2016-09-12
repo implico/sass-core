@@ -11,7 +11,7 @@ $sc-desktop-lg-min: 1400px !default;
 
 
 
-@include add-breakpoint('mobile', 0);
+@include add-breakpoint('mobile', 0px);
 @include add-breakpoint('mobile-ex', max-width $sc-tablet-min - 1);
 @include add-breakpoint('mobile-sm', max-width $sc-mobile-lg-min - 1);
 @include add-breakpoint('mobile-lg', $sc-mobile-lg-min $sc-tablet-min - 1);
@@ -24,6 +24,12 @@ $sc-desktop-lg-min: 1400px !default;
 @include add-breakpoint('desktop', $sc-desktop-min);
 @include add-breakpoint('desktop-sm', $sc-desktop-min $sc-desktop-lg-min - 1);
 @include add-breakpoint('desktop-lg', $sc-desktop-lg-min);
+
+
+//retina settings for retina-kind breakpoints (see _retina.scss)
+$sc-retina-suffix: (
+  192: '@2x'
+) !default;
 
 
 //base breakpoints for vw/percentage converting (mainly fonts); specify only ones that are different than main breakpoints
@@ -69,3 +75,4 @@ $font-w-semibold: 600 !default;
 $font-w-bold: 700 !default;
 $font-w-xbold: 800 !default;
 $font-w-black: 900 !default;
+

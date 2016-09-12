@@ -1,0 +1,29 @@
+// =============================================================================
+// Retina background
+// =============================================================================
+
+@mixin bg-retina($full-path) {
+  $lastDotIndex: null;
+  $extension: '';
+  $pathAndName: '';
+  
+  @for $i from 1 through str-length($full-path) {
+    @if str-slice($full-path, $i, $i) == '.' {
+      $lastDotIndex: $i;
+    }
+  }
+  @if $lastDotIndex != null {
+    $extension: str-slice($full-path, $lastDotIndex, str-length($full-path));
+    $pathAndName: str-slice($full-path, 0, $lastDotIndex - 1);
+  }
+
+  background-image: url($full-path);
+
+  @each $resolution, $suffix in $sc-retina-suffix {
+    $minRes: min-resolution $resolution * 1dpi;
+
+    @include breakpoint($minRes) {
+      background-image: url($pathAndName + $suffix + $extension);
+    }
+  }
+}
