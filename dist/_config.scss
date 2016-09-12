@@ -11,7 +11,7 @@ $sc-desktop-lg-min: 1400px !default;
 
 
 
-@include add-breakpoint('mobile', 0);
+@include add-breakpoint('mobile', 0px);
 @include add-breakpoint('mobile-ex', max-width $sc-tablet-min - 1);
 @include add-breakpoint('mobile-sm', max-width $sc-mobile-lg-min - 1);
 @include add-breakpoint('mobile-lg', $sc-mobile-lg-min $sc-tablet-min - 1);
