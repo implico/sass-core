@@ -1,0 +1,23 @@
+// =============================================================================
+// Retina background
+// =============================================================================
+
+@mixin bg-retina($full-path) {
+  $extension-index: str-index($full-path, '.'); // accepts only filenames with one dot
+  $path-and-name: str-slice($full-path, 0, $extension-index - 1);
+  $extension: str-slice($full-path, $extension-index);
+
+  background-image: url($full-path);
+
+  @each $resolution, $suffix in $sc-retina-suffix {
+    $min-res: min-resolution $resolution * 1dpi;
+    $pure-suffix: str-slice($suffix, 2); // returns e.g. 2x
+    $breakpoint-name: 'retina' + $pure-suffix; // returns e.g. retina2x
+
+    @include add-breakpoint($breakpoint-name, $min-res);
+
+    @include respond-to($breakpoint-name) {
+      background-image: url($path-and-name + $suffix + $extension);
+    }
+  }
+}
