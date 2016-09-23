@@ -73,7 +73,7 @@
               font-size: $size;
             }
             @else {
-              if $vwFallbackRatio > 0 {
+              @if $vwFallbackRatio > 0 {
                 font-size: round($size * $vwFallbackRatio); //fallback
               }
               font-size: unit-vw($size, $breakpoint);
