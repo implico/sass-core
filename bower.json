@@ -1,21 +1,11 @@
 {
   "name": "sass-core",
   "description": "A SASS-based framework with useful mixins and concepts",
-  "version": "0.1.14",
-  "main": "./dist/_sass-core.scss",
+  "main": "dist/_sass-core.scss",
   "ignore": [],
 
   "author": "Bartosz Sak",
   "license": "MIT",  
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/implico/sass-core.git"
-  },
-  "keywords": [
-    "sass",
-    "mixin",
-    "rwd"
-  ],
 
   "dependencies": {
     "compass-breakpoint": "2.*.*"
