@@ -15,6 +15,9 @@ A [SASS][sass]-based framework with useful mixins. Originally a part of the [Fro
 ### Bower install
 Add `sass-core` to your `bower.json` dependencies.
 
+### Npm install
+Add `sass-starter` (note different name) to your `package.json` dependencies.
+
 ### Manual install
 Unpack the contents of `dist` directory to the desired dir.
 
