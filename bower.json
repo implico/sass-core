@@ -8,6 +8,6 @@
   "license": "MIT",  
 
   "dependencies": {
-    "compass-breakpoint": "2.*.*"
+    "breakpoint-sass": "2.*.*"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "sass-core",
+  "name": "sass-starter",
   "description": "A SASS-based framework with useful mixins and concepts",
   "version": "0.2.0",
   "author": {
@@ -23,7 +23,7 @@
   ],
   "main": "dist/_sass-core.scss",
   "dependencies": {
-    "compass-breakpoint": "2.*.*"
+    "breakpoint-sass": "2.*.*"
   },
   "devDependencies": {}
 }
