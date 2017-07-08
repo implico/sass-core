@@ -1,7 +1,7 @@
 {
   "name": "sass-starter",
   "description": "A SASS-based framework with useful mixins and concepts",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": {
     "name": "Bartosz Sak",
     "email": "bartosz.sak@gmail.com"
